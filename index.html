@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Birthday Gift Cream</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4a9ae;--bg2:#f8bcc0;--ink:#9b2d46;--card:#fff6f1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#f4a9ae;--bg2:#f8bcc0;--ink:#9b2d46}}
+:root[data-theme="dark"]{--bg:#f4a9ae;--bg2:#f8bcc0;--ink:#9b2d46}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:'Fredoka',system-ui,sans-serif;overflow:hidden}
+body{background:radial-gradient(circle at 50% 40%,var(--bg2),var(--bg))}
+.script{font-family:'Great Vibes','Brush Script MT',cursive;font-weight:400}
+.scene{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px;text-align:center;animation:in .6s ease}
+.scene.on{display:flex}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h1,h2{margin:0;font-size:clamp(34px,9vw,54px);line-height:1.1}
+.btn{background:var(--ink);color:#fff;border:0;border-radius:999px;padding:11px 30px;font:600 18px 'Fredoka',sans-serif;cursor:pointer;box-shadow:0 4px 0 #6d1d31;transition:transform .1s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #6d1d31}
+.btn.hide{display:none}
+.emoji{font-size:clamp(90px,28vw,150px);line-height:1;filter:drop-shadow(0 6px 6px rgba(0,0,0,.15))}
+/* passcode */
+.pass{display:flex;flex-direction:column;align-items:center;gap:14px}
+.dots{display:flex;gap:10px}
+.dots i{width:42px;height:46px;border:2px solid var(--ink);border-radius:8px;display:grid;place-items:center;font-style:normal;font-size:26px}
+.pad{display:grid;grid-template-columns:repeat(3,64px);gap:8px}
+.pad button{width:64px;height:60px;border:0;background:none;color:#fff;font:600 20px 'Fredoka';cursor:pointer;position:relative;z-index:0}
+.pad button::before{content:"♥";position:absolute;inset:0;font-size:68px;line-height:60px;color:var(--ink);z-index:-1}
+.shake{animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+/* cake */
+.cake{position:relative;width:200px}
+.cake .flames{display:flex;justify-content:center;gap:22px;height:34px;font-size:28px}
+.cake .flames span{animation:fl .5s infinite alternate}
+.cake .flames.out span{opacity:0;animation:none}
+@keyframes fl{to{transform:scale(1.15) rotate(4deg)}}
+.cake .tier{height:50px;margin:0 auto;border-radius:8px 8px 4px 4px;background:repeating-linear-gradient(90deg,#c4223f 0 14px,#d9475f 14px 28px);border-top:10px solid #f6d6a0}
+.cake .t2{width:150px}.cake .t1{width:200px;height:56px}
+.hearts i{position:fixed;font-style:normal;color:#fff;opacity:.8;animation:fall linear infinite;pointer-events:none}
+@keyframes fall{from{transform:translateY(-10vh)}to{transform:translateY(110vh)}}
+/* balloons */
+.balloons{display:flex;gap:14px;align-items:flex-end}
+.bal{width:54px;height:70px;border-radius:50% 50% 48% 48%;cursor:pointer;position:relative;transition:transform .15s}
+.bal::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:90px;background:rgba(155,45,70,.4)}
+.bal:active{transform:scale(1.1)}
+.bal.pop{animation:pop .3s forwards}
+@keyframes pop{to{transform:scale(2);opacity:0}}
+/* bunting */
+.bunting{position:absolute;top:0;left:0;right:0;height:46px;background:repeating-linear-gradient(90deg,#fbe3c6 0 30px,#7c3a47 30px 36px);clip-path:polygon(0 0,100% 0,100% 30%,97% 100%,94% 30%,91% 100%,88% 30%,85% 100%,82% 30%,79% 100%,76% 30%,73% 100%,70% 30%,67% 100%,64% 30%,61% 100%,58% 30%,55% 100%,52% 30%,49% 100%,46% 30%,43% 100%,40% 30%,37% 100%,34% 30%,31% 100%,28% 30%,25% 100%,22% 30%,19% 100%,16% 30%,13% 100%,10% 30%,7% 100%,4% 30%,1% 100%,0 30%)}
+/* items */
+.items{display:flex;gap:26px;font-size:clamp(50px,16vw,76px)}
+.item{cursor:pointer;transition:transform .2s;filter:drop-shadow(0 4px 4px rgba(0,0,0,.15));background:none;border:0;padding:0;font-size:inherit}
+.item:hover{transform:scale(1.15) rotate(-5deg)}
+.item.done{opacity:.4}
+/* photo / film */
+.polaroid{background:var(--card);padding:14px 14px 40px;border-radius:6px;box-shadow:0 10px 24px rgba(0,0,0,.2);transform:rotate(-2deg);cursor:pointer;position:relative;width:min(78vw,300px)}
+.slot{aspect-ratio:3/4;background:#e9d3cf center/cover;display:grid;place-items:center;color:var(--ink);font-size:15px;padding:10px}
+.tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#f3d98b;padding:2px 14px;font-size:20px;white-space:nowrap}
+.film{background:#7a2c3d;padding:20px 8px;border-radius:4px;width:min(88vw,380px);cursor:pointer;background-image:repeating-linear-gradient(90deg,transparent 0 14px,#f4a9ae 14px 24px);background-size:100% 10px;background-repeat:no-repeat;position:relative}
+.film .slot{aspect-ratio:16/10;margin:0}
+.film::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:10px;background:repeating-linear-gradient(90deg,transparent 0 14px,#f4a9ae 14px 24px)}
+.film::before{content:"";position:absolute;left:0;right:0;top:6px;height:10px;background:repeating-linear-gradient(90deg,transparent 0 14px,#f4a9ae 14px 24px)}
+.letter{background:var(--card);padding:22px;border-radius:8px;max-width:min(88vw,380px);box-shadow:0 10px 24px rgba(0,0,0,.2);font-size:15.5px;line-height:1.55;text-align:left}
+.letter b{display:block;text-align:center;font-size:12px;letter-spacing:.15em;margin-bottom:8px}
+.ransom{font-weight:600;font-size:clamp(46px,14vw,70px);line-height:1;display:flex;flex-direction:column;gap:6px}
+.ransom span{display:inline-block;padding:2px 8px;background:#fff6f1;box-shadow:2px 3px 0 rgba(0,0,0,.15)}
+.hint{font-size:14px;opacity:.8}
+input[type=file]{display:none}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+
+<!-- 1 passcode -->
+<section class="scene on" id="s0">
+  <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:center">
+    <div class="emoji">🐰</div>
+    <div class="pass">
+      <div style="font-weight:600;font-size:20px">Enter a passcode</div>
+      <div class="dots" id="dots"></div>
+      <div class="pad" id="pad"></div>
+      <button class="btn" id="go">Next</button>
+    </div>
+  </div>
+</section>
+
+<!-- 2 cake -->
+<section class="scene" id="s1">
+  <h1 class="script" id="wish">Happy Birthday Love!</h1>
+  <div class="cake"><div class="flames" id="fl"><span>🔥</span><span>🔥</span><span>🔥</span></div><div class="tier t2"></div><div class="tier t1"></div></div>
+  <button class="btn" id="blow">Blow</button>
+  <button class="btn hide" data-next>Next</button>
+</section>
+
+<!-- 3 balloons -->
+<section class="scene" id="s2">
+  <h2 class="script">Pop all 4 Balloons</h2>
+  <div class="balloons" id="bals"></div>
+  <div style="height:70px"></div>
+  <button class="btn hide" data-next>Next</button>
+</section>
+
+<!-- 4 panda -->
+<section class="scene" id="s3">
+  <div class="bunting"></div>
+  <div class="emoji">🐼</div>
+  <div class="script" style="font-size:34px">You are so special</div>
+  <div class="script" style="font-size:26px">my cute little panda</div>
+  <button class="btn" data-next>Next</button>
+</section>
+
+<!-- 5 gift -->
+<section class="scene" id="s4">
+  <h2 class="script" style="font-size:36px">Do you want to open your gift?</h2>
+  <div class="emoji">🎁</div>
+  <div style="display:flex;gap:40px;position:relative;height:56px;width:230px;justify-content:space-between">
+    <button class="btn" data-next>Yes</button>
+    <button class="btn" id="no" style="position:relative">No</button>
+  </div>
+</section>
+
+<!-- 6 menu -->
+<section class="scene" id="s5">
+  <h2 class="script">These are for you</h2>
+  <div class="hint">choose one to open</div>
+  <div class="items">
+    <button class="item" data-open="6">📷</button>
+    <button class="item" data-open="7">🍾</button>
+    <button class="item" data-open="8">⭐</button>
+  </div>
+  <button class="btn hide" id="fin">Next</button>
+</section>
+
+<!-- 7 photo -->
+<section class="scene" id="s6">
+  <label class="polaroid"><span class="tag script">Who is this beautiful?</span>
+    <div class="slot" id="ph">Tap to add your photo 📷</div>
+    <input type="file" accept="image/*" data-slot="ph"></label>
+  <button class="btn" data-back>Next</button>
+</section>
+
+<!-- 8 letter -->
+<section class="scene" id="s7">
+  <div class="letter"><b>TO THE LOVE OF MY LIFE</b>
+    "Happy Birthday, Love!<br><br>
+    Today is all about celebrating the beautiful person you are. Your kindness, strength, and warmth light up every room you enter, and I feel so grateful to have you in my life. May your special day bring you endless joy, exciting adventures, and all the love you deserve.<br><br>
+    Here's to making wonderful memories together and cherishing every moment. Enjoy your special day to the fullest!"
+  </div>
+  <button class="btn" data-back>Next</button>
+</section>
+
+<!-- 9 film -->
+<section class="scene" id="s8">
+  <h2 class="script" style="font-size:38px">Sending you hugs and kisses 💋</h2>
+  <label class="film"><div class="slot" id="fm">Tap to add a photo 🎞️</div>
+    <input type="file" accept="image/*" data-slot="fm"></label>
+  <button class="btn" data-back>Next</button>
+</section>
+
+<!-- 10 end -->
+<section class="scene" id="s9">
+  <div class="ransom"><span style="color:#2f6fb0">Lots</span><span style="color:#d6a21c;margin-left:40px">of</span><span style="color:#b84a8a;margin-left:80px">Love</span></div>
+  <div class="emoji" style="font-size:80px">🐰🐰</div>
+  <button class="btn" id="again">Replay</button>
+</section>
+
+<script>
+// ---- EDIT THESE ----
+const PASSCODE = "1234";                 // passcode to unlock
+const NAME_LINE = "Happy Birthday Love!"; // cake message
+// --------------------
+const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
+let cur = 0;
+const show = n => { $$('.scene').forEach(s => s.classList.remove('on')); $('#s'+n).classList.add('on'); cur = n; };
+$('#wish').textContent = NAME_LINE;
+
+// floating hearts
+for (let i=0;i<14;i++){const h=document.createElement('i');h.textContent='♡';h.style.cssText=`left:${Math.random()*100}vw;font-size:${14+Math.random()*16}px;animation-duration:${9+Math.random()*10}s;animation-delay:-${Math.random()*15}s`;$('#hearts').appendChild(h);}
+
+// passcode
+let code = "";
+const dots = $('#dots'); for (let i=0;i<PASSCODE.length;i++) dots.appendChild(document.createElement('i'));
+const draw = () => $$('i', dots).forEach((d,i) => d.textContent = code[i] ? '★' : '');
+$('#pad').innerHTML = ['1','2','3','4','5','6','7','8','9','*','0','#'].map(k=>`<button>${k}</button>`).join('');
+$$('#pad button').forEach(b => b.onclick = () => { if (code.length < PASSCODE.length) { code += b.textContent; draw(); } });
+$('#go').onclick = () => {
+  if (code === PASSCODE) show(1);
+  else { dots.classList.add('shake'); setTimeout(()=>dots.classList.remove('shake'),400); code=""; draw(); }
+};
+
+// cake
+$('#blow').onclick = () => { $('#fl').classList.add('out'); $('#blow').classList.add('hide'); $('#s1 [data-next]').classList.remove('hide'); };
+
+// balloons
+const cols = ['radial-gradient(circle at 35% 30%,#d9b3b3,#8a5a5a)','radial-gradient(circle at 35% 30%,#e8c4c8,#9b6068)','radial-gradient(circle at 35% 30%,#cfa3a3,#7d4a4e)','radial-gradient(circle at 35% 30%,#e3b9b9,#8f5559)'];
+let popped = 0;
+cols.forEach(c => { const b = document.createElement('div'); b.className='bal'; b.style.background=c;
+  b.onclick = () => { if (b.classList.contains('pop')) return; b.classList.add('pop'); if (++popped === 4) $('#s2 [data-next]').classList.remove('hide'); };
+  $('#bals').appendChild(b); });
+
+// generic next
+$$('[data-next]').forEach(b => b.onclick = () => show(cur + 1));
+
+// "No" dodges
+const no = $('#no'); const dodge = () => { no.style.left = (Math.random()*80-40)+'px'; no.style.top = (Math.random()*60-30)+'px'; };
+no.onmouseenter = dodge; no.onclick = dodge;
+
+// menu
+const seen = new Set();
+$$('[data-open]').forEach(b => b.onclick = () => { seen.add(b.dataset.open); b.classList.add('done'); show(+b.dataset.open); });
+$$('[data-back]').forEach(b => b.onclick = () => { show(5); if (seen.size === 3) $('#fin').classList.remove('hide'); });
+$('#fin').onclick = () => show(9);
+// 3rd option (star) opens the film
+// photo upload
+$$('input[data-slot]').forEach(inp => inp.onchange = () => {
+  const f = inp.files[0]; if (!f) return;
+  const r = new FileReader(); r.onload = () => { const s = $('#'+inp.dataset.slot); s.style.backgroundImage = `url(${r.result})`; s.textContent = ''; }; r.readAsDataURL(f);
+});
+
+$('#again').onclick = () => { seen.clear(); $$('.item').forEach(i=>i.classList.remove('done')); $('#fin').classList.add('hide'); code=""; draw(); show(0); };
+</script>
+</body>
+</html>
